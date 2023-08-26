@@ -1,7 +1,5 @@
 <template>
-  <!-- <Header /> -->
   <v-main />
-  <!-- <Footer /> -->
 </template>
 
 <script setup lang="ts">
