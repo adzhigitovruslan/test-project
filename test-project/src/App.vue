@@ -1,27 +1,24 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+  <!-- <Header /> -->
+  <v-main />
+  <!-- <Footer /> -->
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
-import HelloWorld from './components/HelloWorld.vue';
+<script setup lang="ts">
+import VMain from "./components/V-Main.vue";
+import { useStore } from "vuex";
 
-export default defineComponent({
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-});
+const store = useStore();
+store.dispatch("getProducts");
 </script>
 
 <style lang="scss">
+@import "./assets/null.scss";
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  height: 100%;
+  width: 100%;
 }
 </style>
