@@ -2,13 +2,30 @@
   <div class="product-wrapper">
     <h1>Product list</h1>
     <div class="input-container">
-      <input type="text" placeholder="Add Product" />
-      <button class="button">Add</button>
+      <input
+        type="text"
+        placeholder="Add Product"
+        v-model="inputVal"
+        @keyup.enter="addItemToList"
+      />
+      <button class="button" @click="addItemToList">Add</button>
     </div>
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ref } from "vue";
+const emit = defineEmits(["save-product"]);
+const inputVal = ref("");
+
+function addItemToList() {
+  if (!inputVal.value) {
+    return;
+  }
+  emit("save-product", inputVal.value);
+  inputVal.value = "";
+}
+</script>
 
 <style lang="scss" scoped>
 .product-wrapper {
@@ -28,23 +45,19 @@
 
 .input-container {
   display: flex;
-  background: #fefefecc;
+  background: #212121;
   border-radius: 1rem;
-  background: linear-gradient(135deg, #23272f 0%, #14161a 100%);
-  box-shadow: 10px 10px 20px #0e1013, -10px -10px 40px #383e4b;
   padding: 3px;
   gap: 0.3rem;
   & input {
     border-radius: 0.8rem 0 0 0.8rem;
-    background: #23272f;
-    box-shadow: inset 5px 5px 10px #0e1013, inset -5px -5px 10px #383e4b,
-      0px 0px 100px rgba(255, 212, 59, 0), 0px 0px 100px rgba(255, 102, 0, 0);
+    background: #fefefe;
     width: 100%;
     flex-basis: 75%;
     padding: 5px 15px;
     border: none;
     border: 1px solid transparent;
-    color: #fefefecc;
+    color: #212121;
     transition: all 0.2s ease-in-out;
     @media (max-width: 500px) {
       border-radius: 0.8rem;

@@ -25,6 +25,7 @@ svg {
   transition: 0.2s;
   &:hover {
     opacity: 0.8;
+    transform: translateY(-2px);
   }
 }
 </style>

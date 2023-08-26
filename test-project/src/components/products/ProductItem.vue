@@ -1,16 +1,35 @@
 <template>
   <li class="product-item">
     <check-box v-model="checkedVal" />
-    <p :class="{ checked: checkedVal }">Added product</p>
-    <remove-button />
+    <p :class="{ checked: checkedVal }">{{ name }}</p>
+    <remove-button @click="removeProduct(id)" />
   </li>
 </template>
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import CheckBox from "./CheckBox.vue";
 import RemoveButton from "./RemoveButton.vue";
+import { useStore } from "vuex";
+const store = useStore();
 
-const checkedVal = ref(false);
+const props = defineProps<{
+  name: string;
+  id: string;
+  isChecked: boolean;
+}>();
+const emit = defineEmits(["remove-product"]);
+const checkedVal = ref(props.isChecked);
+
+function removeProduct(id: string) {
+  emit("remove-product", id);
+}
+
+watch(checkedVal, () => {
+  store.dispatch("updateCheckbox", {
+    isChecked: checkedVal.value,
+    id: props.id,
+  });
+});
 </script>
 
 <style lang="scss" scoped>
