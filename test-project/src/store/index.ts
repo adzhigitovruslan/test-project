@@ -13,7 +13,7 @@ export default createStore({
 
       state.products.forEach((product) => {
         if (product.isChecked) {
-          checkedProducts.unshift(product);
+          checkedProducts.push(product);
         } else {
           uncheckedProducts.unshift(product);
         }
