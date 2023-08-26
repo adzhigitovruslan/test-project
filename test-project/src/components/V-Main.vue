@@ -14,8 +14,12 @@ import { useStore } from "vuex";
 
 const store = useStore();
 
-function saveToProduct(product: string) {
-  store.dispatch("saveToProduct", { productName: product, isChecked: false });
+function saveToProduct(productName: string) {
+  store.dispatch("saveToProduct", {
+    productName: productName,
+    isChecked: false,
+    date: +new Date(),
+  });
 }
 function removeFromProduct(index: string) {
   store.dispatch("removeFromProduct", index);

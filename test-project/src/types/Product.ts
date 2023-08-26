@@ -3,4 +3,5 @@ export interface Product {
   isChecked: boolean;
   name?: string;
   id: string;
+  date: number;
 }

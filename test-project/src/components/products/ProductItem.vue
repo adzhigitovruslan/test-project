@@ -1,16 +1,14 @@
 <template>
   <li class="product-item">
-    <check-box v-model="checkedVal" />
+    <check-box v-model="checkedVal" :id="id" />
     <p :class="{ checked: checkedVal }">{{ name }}</p>
     <remove-button @click="removeProduct(id)" />
   </li>
 </template>
 <script setup lang="ts">
-import { ref, watch } from "vue";
+import { ref } from "vue";
 import CheckBox from "./CheckBox.vue";
 import RemoveButton from "./RemoveButton.vue";
-import { useStore } from "vuex";
-const store = useStore();
 
 const props = defineProps<{
   name: string;
@@ -23,13 +21,6 @@ const checkedVal = ref(props.isChecked);
 function removeProduct(id: string) {
   emit("remove-product", id);
 }
-
-watch(checkedVal, () => {
-  store.dispatch("updateCheckbox", {
-    isChecked: checkedVal.value,
-    id: props.id,
-  });
-});
 </script>
 
 <style lang="scss" scoped>

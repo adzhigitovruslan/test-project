@@ -8,14 +8,22 @@
 </template>
 
 <script setup lang="ts">
-defineProps<{
+import { useStore } from "vuex";
+const store = useStore();
+const props = defineProps<{
   modelValue: boolean;
+  id: string;
 }>();
 
 const emit = defineEmits(["update:modelValue"]);
 
 function isCheckboxTrue(e: Event) {
   const checkbox = e.target as HTMLInputElement;
+  store.dispatch("updateCheckbox", {
+    isChecked: checkbox.checked,
+    id: props.id,
+    date: +new Date(),
+  });
   emit("update:modelValue", checkbox.checked);
 }
 </script>

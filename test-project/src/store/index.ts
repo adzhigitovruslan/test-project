@@ -15,10 +15,13 @@ export default createStore({
         if (product.isChecked) {
           checkedProducts.push(product);
         } else {
-          uncheckedProducts.unshift(product);
+          uncheckedProducts.push(product);
         }
       });
-      console.log(uncheckedProducts, checkedProducts);
+
+      uncheckedProducts.sort((a, b) => b.date - a.date);
+      checkedProducts.sort((a, b) => a.date - b.date);
+      console.log([...uncheckedProducts, ...checkedProducts]);
 
       return [...uncheckedProducts, ...checkedProducts];
     },
@@ -43,6 +46,7 @@ export default createStore({
       const product = state.products.find((item) => item.id === payload.id);
       if (product) {
         product.isChecked = !product.isChecked;
+        state.products = [...state.products];
       }
     },
   },
@@ -56,6 +60,7 @@ export default createStore({
             body: JSON.stringify({
               productName: payload.productName,
               isChecked: payload.isChecked,
+              date: payload.date,
             }),
           }
         );
@@ -68,6 +73,7 @@ export default createStore({
           productName: payload.productName,
           isChecked: payload.isChecked,
           id: data.name,
+          date: payload.date,
         });
       } catch (err) {
         console.log(err);
@@ -112,6 +118,7 @@ export default createStore({
             productName: data[key].productName,
             isChecked: data[key].isChecked,
             id: key,
+            date: data[key].date,
           };
           products.push(product);
         }
@@ -131,6 +138,7 @@ export default createStore({
             method: "PATCH",
             body: JSON.stringify({
               isChecked: payload.isChecked,
+              date: +new Date(),
             }),
           }
         );
