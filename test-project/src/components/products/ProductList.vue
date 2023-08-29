@@ -6,7 +6,7 @@
         name="display"
         mode="out-in"
       >
-        <p v-if="!getProductsList.length">There is no products yet.</p>
+        <p v-if="!getProductsList.length">There are no products yet.</p>
         <transition-group v-else name="product" tag="ul">
           <product-item
             v-for="product in getProductsList"
